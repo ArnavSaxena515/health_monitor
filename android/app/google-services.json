@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410191853165",
+    "project_id": "health-monitor-3f0a8",
+    "storage_bucket": "health-monitor-3f0a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410191853165:android:6a2ed10b54171304bc7164",
+        "android_client_info": {
+          "package_name": "com.arnav.health_monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410191853165-21r6cilc7bkusec2eje87sf541nic2i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbHEHGs90ZaFlOxUskP4p4sOKO6zOS_0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410191853165-21r6cilc7bkusec2eje87sf541nic2i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
