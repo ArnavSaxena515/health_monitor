@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_monitor/screens/home.dart';
 import 'package:health_monitor/screens/vitals_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -26,15 +27,13 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasData) {
               print(snapshot.data);
               print("success");
-              return VitalsPage();
+              return HomePage();
             } else {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
           },
-        )
-        // VitalsPage(),
-        );
+        ));
   }
 }

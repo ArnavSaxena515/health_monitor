@@ -3,11 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:health_monitor/components/bottom_button.dart';
 import 'package:health_monitor/components/icon_content.dart';
+import 'package:health_monitor/components/main_menu.dart';
 import 'package:health_monitor/components/reusable_card.dart';
 import 'package:health_monitor/functionality/data.dart';
 import 'package:health_monitor/functionality/sensor_data.dart';
+import 'package:health_monitor/screens/step_counter.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'dart:convert';
 import '../constants.dart';
 import 'add_remark.dart';
@@ -29,6 +33,8 @@ class _VitalsPageState extends State<VitalsPage> with TickerProviderStateMixin {
   int pulse = 0;
   int spo2 = 0;
   String remark;
+  int _currentNavigationIndex = 0;
+  int currentPage;
 
   @override
   void initState() {
@@ -54,12 +60,15 @@ class _VitalsPageState extends State<VitalsPage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  Future<void> _sendData() async {
+  Future<void> _sendData([String remark]) async {
     print("Send data called");
-    DatabaseReference _databaseRef = FirebaseDatabase.instance.reference().child("test");
-    print(_databaseRef.path);
-    print(_databaseRef.key);
-    _databaseRef.set("Hello word ${Random().nextInt(100)}");
+    Map<String, dynamic> data = {'Time:': DateTime.now().toString(), 'Pulse': pulse, 'SpO2': spo2, 'Remark': remark};
+    FirebaseFirestore.instance.collection("DATA").add(data).catchError((e) {
+      print(e);
+    });
+    // print(_databaseRef.path);
+    // print(_databaseRef.key);
+    // _databaseRef.set("Hello word ${Random().nextInt(100)}");
   }
 
   @override
@@ -163,32 +172,32 @@ class _VitalsPageState extends State<VitalsPage> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-              child: BottomButton(
-            alignment: Alignment.center,
-            buttonTitle: 'Upload Data',
-            onTap: () {
-              _sendData();
-              // showModalBottomSheet(
-              //   context: context,
-              //   builder: (context) => SingleChildScrollView(
-              //     child: Container(
-              //       padding: EdgeInsets.only(
-              //         bottom: MediaQuery.of(context).viewInsets.bottom,
-              //       ),
-              //       child: AddRemarks((value) {
-              //         print(value);
-              //         String data;
-              //         DateTime now = DateTime.now();
-              //         remark = value.toString();
-              //         // print(now);
-              //         data = '{"Time": $now, "Pulse": $pulse, "SPO2": $spo2, "Remarks": $remark}';
-              //
-              //       }),
-              //     ),
-              //   ),
-              // );
-            },
-          ))
+            child: BottomButton(
+              alignment: Alignment.center,
+              buttonTitle: 'Upload Data',
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      child: AddRemarks((value) async {
+                        print(value);
+                        String data;
+                        DateTime now = DateTime.now();
+                        remark = value.toString();
+                        // print(now);
+                        data = '{"Time": $now, "Pulse": $pulse, "SPO2": $spo2, "Remarks": $remark}';
+                        _sendData(remark);
+                      }),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

@@ -22,13 +22,15 @@ class IconContent extends StatelessWidget {
               scale: animation.value,
               child: Icon(
                 icon,
-                size: 70.0,
+                size: 50.0,
+                //70
               ),
             );
           },
         ),
         SizedBox(
-          height: 15.0,
+          height: 10.0,
+          //15
         ),
         Text(
           label,
