@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
         currentIndex: currentTab,
         items: [
           BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.home), label: 'Vitals', backgroundColor: kActiveCardColour),
-          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.shoePrints), label: 'Pedometer', backgroundColor: kActiveCardColour),
+          BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.dumbbell), label: 'Reps', backgroundColor: kActiveCardColour),
           BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.weight), label: 'BMI', backgroundColor: kActiveCardColour)
         ],
         onTap: (index) {
