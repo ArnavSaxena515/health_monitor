@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:pedometer/pedometer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
@@ -15,7 +16,7 @@ class StepsCounter extends StatefulWidget {
 class _StepsCounterState extends State<StepsCounter> {
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  String _status = '?', _squats = '?';
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _StepsCounterState extends State<StepsCounter> {
   void onStepCount(StepCount event) {
     print(event);
     setState(() {
-      _steps = event.steps.toString();
+      _squats = event.steps.toString();
     });
   }
 
@@ -41,7 +42,7 @@ class _StepsCounterState extends State<StepsCounter> {
   void onStepCountError(error) {
     print('onStepCountError: $error');
     setState(() {
-      _steps = 'Step Count not available';
+      _squats = 'Step Count not available';
     });
   }
 
@@ -69,11 +70,11 @@ class _StepsCounterState extends State<StepsCounter> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Steps taken:',
+            'Squats Done:',
             style: TextStyle(fontSize: 30),
           ),
           Text(
-            _steps,
+            _squats,
             style: TextStyle(fontSize: 60),
           ),
           Divider(
@@ -81,24 +82,8 @@ class _StepsCounterState extends State<StepsCounter> {
             thickness: 0,
             color: Colors.white,
           ),
-          Text(
-            'Pedestrian status:',
-            style: TextStyle(fontSize: 30),
-          ),
-          Icon(
-            _status == 'walking'
-                ? Icons.directions_walk
-                : _status == 'stopped'
-                    ? Icons.accessibility_new
-                    : Icons.error,
-            size: 100,
-          ),
-          Center(
-            child: Text(
-              _status,
-              style: _status == 'walking' || _status == 'stopped' ? TextStyle(fontSize: 30) : TextStyle(fontSize: 20, color: Colors.red),
-            ),
-          )
+
+          //
         ],
       ),
     );
